@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Album Log</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <h1>Album Log</h1>
+    <nav><a href="add.html">Add album</a></nav>
+  </header>
+
+  <div class="summary" id="summary"></div>
+
+  <div class="filters">
+    <label>Search<input type="search" id="q" placeholder="Title, artist, review"></label>
+    <label>Genre<select id="genre"><option value="">All genres</option></select></label>
+    <label>Decade<select id="decade"><option value="">All decades</option></select></label>
+    <label>Minimum rating<select id="minr">
+      <option value="0">Any</option><option value="6">6+</option><option value="7">7+</option><option value="8">8+</option><option value="9">9+</option>
+    </select></label>
+    <label>Sort by<select id="sort">
+      <option value="date">Date listened (newest)</option>
+      <option value="rating">Rating (highest)</option>
+      <option value="rating-asc">Rating (lowest)</option>
+      <option value="year">Release year (newest)</option>
+      <option value="artist">Artist (A–Z)</option>
+    </select></label>
+  </div>
+
+  <main id="list"></main>
+</div>
+
+<script>
+let albums = [];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtDate = d => d ? new Date(d + "T12:00:00").toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}) : "";
+const decadeOf = y => y ? Math.floor(y/10)*10 + "s" : "";
+
+fetch("albums.json", {cache:"no-store"})
+  .then(r => r.json())
+  .then(data => { albums = data; setup(); render(); })
+  .catch(() => { $("list").innerHTML = '<p class="empty">Could not load albums.json.</p>'; });
+
+function setup(){
+  const genres = [...new Set(albums.map(a => a.genre).filter(Boolean))].sort();
+  genres.forEach(g => $("genre").insertAdjacentHTML("beforeend", `<option>${esc(g)}</option>`));
+  const decades = [...new Set(albums.map(a => decadeOf(a.year)).filter(Boolean))].sort().reverse();
+  decades.forEach(d => $("decade").insertAdjacentHTML("beforeend", `<option>${esc(d)}</option>`));
+  ["q","genre","decade","minr","sort"].forEach(id => $(id).addEventListener("input", render));
+}
+
+function render(){
+  const q = $("q").value.trim().toLowerCase();
+  const g = $("genre").value, d = $("decade").value, minr = +$("minr").value, s = $("sort").value;
+  let list = albums.filter(a =>
+    (!g || a.genre === g) && (!d || decadeOf(a.year) === d) && a.rating >= minr &&
+    (!q || [a.title,a.artist,a.review,(a.tags||[]).join(" ")].join(" ").toLowerCase().includes(q)));
+  const sorters = {
+    date:(a,b)=>(b.dateListened||"").localeCompare(a.dateListened||""),
+    rating:(a,b)=>b.rating-a.rating,
+    "rating-asc":(a,b)=>a.rating-b.rating,
+    year:(a,b)=>(b.year||0)-(a.year||0),
+    artist:(a,b)=>a.artist.localeCompare(b.artist)
+  };
+  list.sort(sorters[s]);
+
+  const avg = list.length ? (list.reduce((t,a)=>t+a.rating,0)/list.length).toFixed(1) : "–";
+  $("summary").innerHTML = `<span><b>${list.length}</b> ${list.length===1?"album":"albums"}</span><span>Average rating <b>${avg}</b></span>`;
+
+  if(!list.length){
+    $("list").innerHTML = '<p class="empty">No albums match these filters.</p>';
+    return;
+  }
+  $("list").innerHTML = list.map(a => {
+    const cover = /^https:\/\//.test(a.cover||"")
+      ? `<img class="cover" src="${esc(a.cover)}" alt="Cover of ${esc(a.title)}" loading="lazy">`
+      : `<div class="cover" aria-hidden="true">${esc(a.title.slice(0,1))}</div>`;
+    const chips = [
+      a.year ? `<span class="chip">${esc(a.year)}</span>` : "",
+      a.genre ? `<span class="chip">${esc(a.genre)}</span>` : "",
+      ...(a.tags||[]).map(t => `<span class="chip">${esc(t)}</span>`),
+      `<span class="chip ${a.relisten?"re":""}">${a.relisten?"Re-listen":"First listen"}</span>`,
+      a.dateListened ? `<span>Listened ${esc(fmtDate(a.dateListened))}</span>` : ""
+    ].join("");
+    return `<article class="album">
+      <div><div class="score">${a.rating.toFixed(1)}<small>out of 10</small></div>
+        <div class="bar"><i style="width:${a.rating*10}%"></i></div></div>
+      ${cover}
+      <div class="main">
+        <h2>${esc(a.title)}</h2>
+        <p class="by">${esc(a.artist)}</p>
+        <div class="meta">${chips}</div>
+        ${a.review ? `<p class="review">${esc(a.review)}</p>` : ""}
+      </div>
+    </article>`;
+  }).join("");
+}
+</script>
+</body>
+</html>

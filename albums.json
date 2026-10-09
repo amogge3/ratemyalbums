@@ -1,0 +1,26 @@
+[
+  {
+    "title": "OK Computer",
+    "artist": "Radiohead",
+    "year": 1997,
+    "genre": "Rock",
+    "tags": ["art rock", "alternative"],
+    "rating": 9.5,
+    "dateListened": "2026-10-03",
+    "relisten": true,
+    "review": "Still sounds like the future. Paranoid Android is the obvious peak, but Let Down is the track I keep coming back to.",
+    "cover": ""
+  },
+  {
+    "title": "Blonde",
+    "artist": "Frank Ocean",
+    "year": 2016,
+    "genre": "R&B",
+    "tags": ["art pop"],
+    "rating": 9.1,
+    "dateListened": "2026-09-21",
+    "relisten": false,
+    "review": "Quiet, strange, and honest. Better on headphones late at night.",
+    "cover": ""
+  }
+]
