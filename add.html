@@ -18,9 +18,9 @@
   </header>
 
   <details class="card" id="settings" style="margin-top:1.25rem">
-    <summary>GitLab connection (one-time setup)</summary>
+    <summary>GitHub connection (one-time setup)</summary>
     <p class="hint">Saved only in this browser. Needed so the Save button can add the album to your repo.</p>
-    <div class="field"><label>Project path or ID<input type="text" id="project" placeholder="yourname/album-log" autocapitalize="none"></label></div>
+    <div class="field"><label>Repository (username/repo)<input type="text" id="project" placeholder="yourname/album-log" autocapitalize="none"></label></div>
     <div class="row">
       <label>Branch<input type="text" id="branch" value="main" autocapitalize="none"></label>
       <label>Access token<input type="password" id="token" autocomplete="off"></label>
@@ -118,14 +118,15 @@ function buildEntry(){
   return e;
 }
 
-// GitLab helpers
-const api = () => `https://gitlab.com/api/v4/projects/${encodeURIComponent(settings.project)}/repository/files/albums.json`;
-const headers = () => ({"PRIVATE-TOKEN": settings.token, "Content-Type":"application/json"});
+// GitHub helpers
+const api = () => `https://api.github.com/repos/${settings.project}/contents/albums.json`;
+const headers = () => ({"Authorization": "Bearer " + settings.token, "Accept": "application/vnd.github+json", "Content-Type":"application/json"});
 const decode = b64 => new TextDecoder().decode(Uint8Array.from(atob(b64), c => c.charCodeAt(0)));
+const encode = text => { let bin = ""; new TextEncoder().encode(text).forEach(b => bin += String.fromCharCode(b)); return btoa(bin); };
 
 async function getFile(){
-  const r = await fetch(`${api()}?ref=${encodeURIComponent(settings.branch)}`, {headers:headers()});
-  if(!r.ok) throw new Error(r.status===401 ? "GitLab rejected the token." : r.status===404 ? "Could not find albums.json. Check the project path and branch." : "GitLab error " + r.status);
+  const r = await fetch(`${api()}?ref=${encodeURIComponent(settings.branch)}`, {headers:headers(), cache:"no-store"});
+  if(!r.ok) throw new Error(r.status===401 ? "GitHub rejected the token." : r.status===404 ? "Could not find albums.json. Check the repository name, branch, and token access." : "GitHub error " + r.status);
   return r.json();
 }
 
@@ -142,7 +143,7 @@ loadGenres();
 
 $("form").onsubmit = async ev => {
   ev.preventDefault();
-  if(!settings.token || !settings.project){ $("settings").open = true; say("Add your GitLab connection first.", true); return; }
+  if(!settings.token || !settings.project){ $("settings").open = true; say("Add your GitHub connection first.", true); return; }
   $("saveBtn").disabled = true; say("Saving...");
   try{
     const f = await getFile();
@@ -153,12 +154,12 @@ $("form").onsubmit = async ev => {
       method:"PUT", headers:headers(),
       body: JSON.stringify({
         branch: settings.branch,
-        content: JSON.stringify(list, null, 2) + "\n",
-        commit_message: `Add album: ${entry.artist} - ${entry.title}`,
-        last_commit_id: f.last_commit_id
+        message: `Add album: ${entry.artist} - ${entry.title}`,
+        content: encode(JSON.stringify(list, null, 2) + "\n"),
+        sha: f.sha
       })
     });
-    if(!r.ok) throw new Error(r.status===403 ? "Token does not have permission to write. It needs the api scope and Developer role or higher." : "Save failed (GitLab error " + r.status + "). Try again.");
+    if(!r.ok) throw new Error(r.status===403 || r.status===404 ? "Token cannot write to this repo. It needs Contents: Read and write access." : r.status===409 || r.status===422 ? "The file changed while saving. Tap Save again." : "Save failed (GitHub error " + r.status + "). Try again.");
     say("Saved. Your site will update in about a minute.");
     $("form").reset(); $("ratingRange").value = 7; $("ratingNum").value = "7.0"; $("date").value = new Date().toLocaleDateString("en-CA");
     loadGenres();
