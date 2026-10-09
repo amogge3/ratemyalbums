@@ -110,5 +110,21 @@
       "electropop"
     ],
     "cover": "https://coverartarchive.org/release-group/9c710cb4-6b20-47d7-a31a-5adb064c6c6b/front-250"
+  },
+  {
+    "title": "Wish You Were Here",
+    "artist": "Pink Floyd",
+    "rating": 9.8,
+    "dateListened": "2026-10-07",
+    "relisten": true,
+    "review": "Idk if this even counts as a listen but on the way back to ATL from SF I disassociated and slept but randomly I would wake up to Shine on you Crazy Dimond and be blessed with some of the most magical music ever made.",
+    "year": 1975,
+    "genre": "Progressive Rock",
+    "tags": [
+      "art rock",
+      "psychedelic rock",
+      "rock"
+    ],
+    "cover": "https://coverartarchive.org/release-group/1a272023-10d3-38ee-bab3-317b55fcc21d/front-250"
   }
 ]
