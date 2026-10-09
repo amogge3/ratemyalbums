@@ -4,7 +4,10 @@
     "artist": "Radiohead",
     "year": 1997,
     "genre": "Rock",
-    "tags": ["art rock", "alternative"],
+    "tags": [
+      "art rock",
+      "alternative"
+    ],
     "rating": 9.5,
     "dateListened": "2026-10-03",
     "relisten": true,
@@ -16,11 +19,30 @@
     "artist": "Frank Ocean",
     "year": 2016,
     "genre": "R&B",
-    "tags": ["art pop"],
+    "tags": [
+      "art pop"
+    ],
     "rating": 9.1,
     "dateListened": "2026-09-21",
     "relisten": false,
     "review": "Quiet, strange, and honest. Better on headphones late at night.",
+    "cover": ""
+  },
+  {
+    "title": "Volume One",
+    "artist": "She & Him",
+    "rating": 6.6,
+    "dateListened": "2026-10-07",
+    "relisten": false,
+    "review": "Listen to this on the flight home from SF for the first time. After going to the concert nothing much compares to how Zooey Deschanel voice sounds in person. Actually such a great concert and her voice is so good. The album is a great example of her voice, and the guitar is also good. To me this is a pre Clairo type of music with great vocals and supporting background production.",
+    "year": 2008,
+    "genre": "Indie Pop (or Alternative Country / Indie Folk)",
+    "tags": [
+      "indie pop",
+      "folk pop",
+      "retro",
+      "singer-songwriter"
+    ],
     "cover": ""
   }
 ]
