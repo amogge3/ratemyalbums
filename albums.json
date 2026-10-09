@@ -44,5 +44,21 @@
       "singer-songwriter"
     ],
     "cover": "https://thumb.wikimedia.org/wikipedia/en/thumb/3/38/She_%26_Him_-_Volume_One.jpg/250px-She_%26_Him_-_Volume_One.jpg?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail"
+  },
+  {
+    "title": "Man on the Moon: The End of Day",
+    "artist": "Kid Cudi",
+    "rating": 8.2,
+    "dateListened": "2026-10-08",
+    "relisten": false,
+    "review": "Great album with so many great hit on it. Also the album has a lot of cohesion to it and I feel like Cudi put a lot of feeling into the album. Cudi Zone probably favorite on the album, but honestly so many great tracks on the album. Definitely an album to listen to front to back.",
+    "year": 2009,
+    "genre": "Hip Hop",
+    "tags": [
+      "alternative hip hop",
+      "electronic",
+      "pop"
+    ],
+    "cover": "https://coverartarchive.org/release-group/1b4bb003-db4c-4858-84ec-817aaca09501/front-250"
   }
 ]
