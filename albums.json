@@ -190,5 +190,21 @@
       "psychedelic rock"
     ],
     "cover": "https://coverartarchive.org/release-group/a348ba2f-f8b3-4686-b928-e63d8d94d543/front-250"
+  },
+  {
+    "title": "Second Helping",
+    "artist": "Lynyrd Skynyrd",
+    "rating": 7.9,
+    "dateListened": "2026-10-10",
+    "relisten": true,
+    "review": "The second best Skynyrd album in my opinion.  The guitar and vocals are so good and just has a lot of songs that are just classic rock song. Sweet Home Alabama is honestly a skip for me though, one of the most overplayed songs of all time. There is no way that Alabama needs to be glazed. On the other hand I Need You if a song I don't here enough and deserves to be on every dad playlist ever made.",
+    "year": 1974,
+    "genre": "Southern Rock",
+    "tags": [
+      "rock",
+      "hard rock",
+      "classic rock"
+    ],
+    "cover": "https://coverartarchive.org/release-group/cbff20dc-1ed7-3579-9a60-c705e88bdf19/front-250"
   }
 ]
