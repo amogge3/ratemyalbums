@@ -206,5 +206,21 @@
       "classic rock"
     ],
     "cover": "https://coverartarchive.org/release-group/cbff20dc-1ed7-3579-9a60-c705e88bdf19/front-250"
+  },
+  {
+    "title": "Deadbeat",
+    "artist": "Tame Impala",
+    "rating": 6.5,
+    "dateListened": "2026-10-11",
+    "relisten": false,
+    "review": "There are some good songs on the album and I did enjoy being in a german night club for half the album, but the album does not have  a coherent style that makes it a well rounded album. It seems to me that Tame Impala is going for some good singles but is not trying to make a full album that is good front to back. Maybe that is just were music is moving now.",
+    "year": 2025,
+    "genre": "Dance-Pop",
+    "tags": [
+      "rock",
+      "electronic",
+      "house"
+    ],
+    "cover": "https://coverartarchive.org/release-group/3ee3e2bb-2584-4f74-ba06-cdecc370a1ba/front-250"
   }
 ]
