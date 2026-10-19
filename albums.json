@@ -428,5 +428,21 @@
       "album rock"
     ],
     "cover": "https://coverartarchive.org/release-group/deee6f92-2662-3095-8aea-6892b10b8265/front-250"
+  },
+  {
+    "title": "[Led Zeppelin IV]",
+    "artist": "Led Zeppelin",
+    "rating": 8.9,
+    "dateListened": "2026-10-19",
+    "relisten": true,
+    "review": "When I think of the definition of rock it is just this album. With one of the greatest songs of all time on it, this album is the pinacol of the development of Led Zeppelin onto the thrown of rock and roll. Also on of my favorite songs ever When the Levee Breaks is just heavenly to listen to. If it wasn't for Four Sticks this album would have been considered a zero miss album.",
+    "year": 1971,
+    "genre": "Hard Rock",
+    "tags": [
+      "rock",
+      "blues rock",
+      "classic rock"
+    ],
+    "cover": "https://coverartarchive.org/release-group/2e61da88-39e9-3473-81d2-c964cb394952/front-250"
   }
 ]
