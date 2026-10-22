@@ -444,5 +444,21 @@
       "classic rock"
     ],
     "cover": "https://coverartarchive.org/release-group/2e61da88-39e9-3473-81d2-c964cb394952/front-250"
+  },
+  {
+    "title": "(pronounced ’lĕh-’nérd ’skin-’nérd)",
+    "artist": "Lynyrd Skynyrd",
+    "rating": 9.1,
+    "dateListened": "2026-10-22",
+    "relisten": false,
+    "review": "This album give me a very similar feel to Led Zeppelin IV where this is the pinacol of one of the most influential rock bands every. This album has a lot of depth on it and makes me get a real understanding of what southern rock actually is. This album marks what rock is in the world and creates a almost perfect album in the process.",
+    "year": 1973,
+    "genre": "Southern Rock",
+    "tags": [
+      "hard rock",
+      "blues rock",
+      "rock"
+    ],
+    "cover": "https://coverartarchive.org/release-group/33446893-8c9f-30b6-aa73-d719df371430/front-250"
   }
 ]
